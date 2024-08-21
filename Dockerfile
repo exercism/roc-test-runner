@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:bookworm
 
 RUN apt-get update --fix-missing
 RUN apt-get upgrade --yes
