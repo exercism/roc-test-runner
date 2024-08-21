@@ -31,7 +31,11 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      - name: Create temporary directory
+        run: mkdir -p ${{ github.workspace }}/temp
+
+      - name: Set TMPDIR
+        run: echo "TMPDIR=${{ github.workspace }}/temp" >> $GITHUB_ENV
+
       - name: Run Tests in Docker
         run: bin/run-tests-in-docker.sh
-        env:
-          TMPDIR: ${{ runner.temp }}
