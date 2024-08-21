@@ -35,9 +35,12 @@ echo "${slug}: testing..."
 # stderr to capture it
 
 # temporary section to debug Github Actions issue
-export RUST_BACKTRACE=full
+echo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
+whoami
 echo "Using TMPDIR=$TMPDIR"
 ls -la $TMPDIR
+export RUST_BACKTRACE=full
+echo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
 
 test_output=$(roc test "${solution_dir%/}/${slug}-test.roc" 2>&1)
 
