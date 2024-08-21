@@ -37,7 +37,13 @@ echo "${slug}: testing..."
 # temporary section to debug Github Actions issue
 echo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
 whoami
-echo "Using TMPDIR=$TMPDIR"
+echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
+echo "RUNNER_TEMP=$RUNNER_TEMP"
+echo "TMPDIR=$TMPDIR"
+echo "ls -la /tmp"
+ls -la /tmp
+export TMPDIR=$RUNNER_TEMP
+echo "ls -la $TMPDIR"
 ls -la $TMPDIR
 export RUST_BACKTRACE=full
 echo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
