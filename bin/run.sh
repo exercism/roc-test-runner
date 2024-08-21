@@ -33,6 +33,12 @@ echo "${slug}: testing..."
 
 # Run the tests for the provided implementation file and redirect stdout and
 # stderr to capture it
+
+# temporary section to debug Github Actions issue
+export RUST_BACKTRACE=full
+echo "Using TMPDIR=$TMPDIR"
+ls -la $TMPDIR
+
 test_output=$(roc test "${solution_dir%/}/${slug}-test.roc" 2>&1)
 
 # Write the results.json file based on the exit code of the command that was 
