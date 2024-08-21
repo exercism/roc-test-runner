@@ -33,3 +33,5 @@ jobs:
 
       - name: Run Tests in Docker
         run: bin/run-tests-in-docker.sh
+        env:
+          TMPDIR: ${{ runner.temp }}
