@@ -1,5 +1,5 @@
 {
   "version": 1,
   "status": "error",
-  "message": "TODO: replace with correct output"
+  "message": "\u001b[1;36m── NOT END OF FILE in tests/syntax-error/syntax-error-test.roc ─────────────────\u001b[0m\n\nI expected to reach the end of the file, but got stuck here:\n\n\u001b[1;36m3\u001b[0m\u001b[1;36m│\u001b[0m  \u001b[37miMpOrT pf.Task exposing [Task]\u001b[0m\n    \u001b[1;31m^\u001b[0m"
 }
