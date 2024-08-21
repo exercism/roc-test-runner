@@ -1,4 +1,4 @@
-FROM debian:bookworm
+FROM ubuntu:24.04
 
 RUN apt-get update --fix-missing
 RUN apt-get upgrade --yes
