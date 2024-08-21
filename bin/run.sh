@@ -36,12 +36,10 @@ echo "${slug}: testing..."
 
 # temporary section to debug Github Actions issue
 echo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
-whoami
-export TMPDIR=/tmp
 export RUST_BACKTRACE=full
 echo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
 
-test_output=$(roc test "${solution_dir%/}/${slug}-test.roc" 2>&1)
+test_output=$(roc test --profiling "${solution_dir%/}/${slug}-test.roc" 2>&1)
 
 # Write the results.json file based on the exit code of the command that was 
 # just executed that tested the implementation file
