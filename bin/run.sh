@@ -42,6 +42,9 @@ echo "RUNNER_TEMP=$RUNNER_TEMP"
 echo "TMPDIR=$TMPDIR"
 echo "ls -la /tmp"
 ls -la /tmp
+echo "Can I actually write in /tmp?" > /tmp/can-I-write
+ls -la /tmp
+cat /tmp/can-I-write
 export TMPDIR=$RUNNER_TEMP
 echo "ls -la $TMPDIR"
 ls -la $TMPDIR
