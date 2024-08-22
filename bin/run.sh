@@ -34,14 +34,6 @@ echo "${slug}: testing..."
 # Run the tests for the provided implementation file and redirect stdout and
 # stderr to capture it
 
-# temporary section to debug Github Actions issue
-echo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
-set -x
-export RUST_BACKTRACE=full
-uname -a
-set +x
-echo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-
 test_output=$(roc test "${solution_dir%/}/${slug}-test.roc" 2>&1)
 
 # Write the results.json file based on the exit code of the command that was 
@@ -52,7 +44,7 @@ else
     # OPTIONAL: Sanitize the output
     # In some cases, the test output might be overly verbose, in which case stripping
     # the unneeded information can be very helpful to the student
-    sanitized_test_output=$(printf "${test_output}\n" | sed 's/ passed in [0-9]\+ ms./ passed./g')
+    sanitized_test_output=$(printf "${test_output}\n" | sed 's/ in [0-9]\+ ms//g')
 
     # OPTIONAL: Manually add colors to the output to help scanning the output for errors
     # If the test output does not contain colors to help identify failing (or passing)
