@@ -39,18 +39,6 @@ echo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
 set -x
 export RUST_BACKTRACE=full
 uname -a
-mkdir /tmp/testtmp
-ls -la /tmp
-ls -la /tmp/testtmp
-echo "Test create" > /tmp/testtmp/test1
-cat /tmp/testtmp/test1
-ls -la /tmp/testtmp/test1
-echo 'Test append' >> /tmp/testtmp/test1
-cat /tmp/testtmp/test1
-rm /tmp/testtmp/test1
-ls -la /tmp/testtmp
-rmdir /tmp/testtmp
-ls -la /tmp
 set +x
 echo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
 
