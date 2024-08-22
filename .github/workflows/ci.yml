@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     name: Tests
-    runs-on: macOS-14
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout code
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
