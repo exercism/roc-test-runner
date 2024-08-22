@@ -37,6 +37,7 @@ echo "${slug}: testing..."
 # temporary section to debug Github Actions issue
 echo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
 export RUST_BACKTRACE=full
+uname -a
 echo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
 
 test_output=$(roc test --profiling "${solution_dir%/}/${slug}-test.roc" 2>&1)
