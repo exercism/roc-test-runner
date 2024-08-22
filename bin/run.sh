@@ -36,11 +36,25 @@ echo "${slug}: testing..."
 
 # temporary section to debug Github Actions issue
 echo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
+set -x
 export RUST_BACKTRACE=full
 uname -a
+mkdir /tmp/testtmp
+ls -la /tmp
+ls -la /tmp/testtmp
+echo "Test create" > /tmp/testtmp/test1
+cat /tmp/testtmp/test1
+ls -la /tmp/testtmp/test1
+echo 'Test append' >> /tmp/testtmp/test1
+cat /tmp/testtmp/test1
+rm /tmp/testtmp/test1
+ls -la /tmp/testtmp
+rmdir /tmp/testtmp
+ls -la /tmp
+set +x
 echo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
 
-test_output=$(roc test --profiling "${solution_dir%/}/${slug}-test.roc" 2>&1)
+test_output=$(roc test "${solution_dir%/}/${slug}-test.roc" 2>&1)
 
 # Write the results.json file based on the exit code of the command that was 
 # just executed that tested the implementation file
