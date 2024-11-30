@@ -1,5 +1,5 @@
 {
   "version": 1,
   "status": "fail",
-  "message": "\u001b[1;36m── EXPECT FAILED in tests/partial-fail/partial-fail-test.roc ───────────────────\u001b[0m\n\nThis expectation failed:\n\n\u001b[1;36m5\u001b[0m\u001b[1;36m│\u001b[0m  \u001b[37mexpect \"hello\" == \"good bye\"\u001b[0m\n    \u001b[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^\u001b[0m\n\n\n\u001b[1;31m1\u001b[0m failed and \u001b[1;32m1\u001b[0m passed."
+  "message": "\u001b[1;36m── EXPECT FAILED in tests/partial-fail/partial-fail-test.roc ───────────────────\u001b[0m\n\nThis expectation failed:\n\n\u001b[1;36m4\u001b[0m\u001b[1;36m│\u001b[0m  \u001b[37mexpect \"hello\" == \"good bye\"\u001b[0m\n    \u001b[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^\u001b[0m\n\n\n\u001b[1;31m1\u001b[0m failed and \u001b[1;32m1\u001b[0m passed"
 }

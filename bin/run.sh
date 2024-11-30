@@ -36,7 +36,7 @@ echo "${slug}: testing..."
 
 test_output=$(roc test "${solution_dir%/}/${slug}-test.roc" 2>&1)
 
-# Write the results.json file based on the exit code of the command that was 
+# Write the results.json file based on the exit code of the command that was
 # just executed that tested the implementation file
 if [ $? -eq 0 ]; then
     jq -n '{version: 1, status: "pass"}' > ${results_file}
@@ -44,7 +44,7 @@ else
     # OPTIONAL: Sanitize the output
     # In some cases, the test output might be overly verbose, in which case stripping
     # the unneeded information can be very helpful to the student
-    sanitized_test_output=$(printf "${test_output}\n" | sed 's/ in [0-9]\+ ms//g')
+    sanitized_test_output=$(printf "${test_output}\n" | sed -E 's/ in [0-9]+ ms\.?$//g')
 
     # OPTIONAL: Manually add colors to the output to help scanning the output for errors
     # If the test output does not contain colors to help identify failing (or passing)
