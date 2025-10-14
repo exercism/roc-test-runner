@@ -12,7 +12,7 @@ WORKDIR /opt/test-runner
 COPY bin/download-dependencies.roc bin/download-dependencies.roc
 
 # download & install roc and the basic-cli platform
-RUN wget -q -O roc.tar.gz https://github.com/roc-lang/roc/releases/download/0.0.0-alpha2-rolling/roc-linux_x86_64-0-alpha2-rolling.tar.gz \
+RUN wget -q -O roc.tar.gz https://github.com/roc-lang/roc/releases/download/alpha4-rolling/roc-linux_x86_64-alpha4-rolling.tar.gz \
     && mkdir /usr/lib/roc \
     && tar -xzf roc.tar.gz --directory /usr/lib/roc --strip-components=1 \
     && rm roc.tar.gz \
