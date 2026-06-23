@@ -44,7 +44,8 @@ else
     # OPTIONAL: Sanitize the output
     # In some cases, the test output might be overly verbose, in which case stripping
     # the unneeded information can be very helpful to the student
-    sanitized_test_output=$(printf "${test_output}\n" | sed -E 's/ in [0-9]+ ms\.?$//g')
+#    sanitized_test_output=$(printf "${test_output}\n" | sed -E 's/(\(cached\)|) in [0-9.]+ ?ms[.:]?$//g')
+    sanitized_test_output=$(printf "%s\n" "${test_output}" | sed -E 's/( \(cached\))? in [0-9.]+ ?ms([.:]?)$/\2/')
 
     # OPTIONAL: Manually add colors to the output to help scanning the output for errors
     # If the test output does not contain colors to help identify failing (or passing)
@@ -53,7 +54,7 @@ else
     #      | GREP_COLOR='01;31' grep --color=always -E -e '^(ERROR:.*|.*failed)$|$' \
     #      | GREP_COLOR='01;32' grep --color=always -E -e '^.*passed$|$')
 
-    printf "${sanitized_test_output}" | grep -q -E "── EXPECT (FAILED|PANICKED) in "
+    printf "%s\n" "${sanitized_test_output}" | grep -q -E "^Ran [0-9]+ tests"
     if [ $? -eq 0 ]; then
         roc_status="fail"
     else

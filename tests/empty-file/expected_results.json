@@ -1,5 +1,5 @@
 {
   "version": 1,
   "status": "error",
-  "message": "\u001b[1;36m── MISSING HEADER in tests/empty-file/empty-file-test.roc ──────────────────────\u001b[0m\n\nI am expecting a header, but got stuck here:\n\n\u001b[1;36m1\u001b[0m\u001b[1;36m│\u001b[0m\n    \u001b[1;31m^\u001b[0m\n\nI am expecting a module keyword next, one of \u001b[1;32minterface\u001b[0m, \u001b[1;32mapp\u001b[0m, \u001b[1;32mpackage\u001b[0m\nor \u001b[1;32mplatform\u001b[0m."
+  "message": "-- \u001b[1m\u001b[31mMISSING MAIN! FUNCTION\u001b[0m ------------------------\n\nDefault app modules must have a \u001b[36mmain!\u001b[0m function.\n\nNo \u001b[36mmain!\u001b[0m function was found.\n\nAdd a main! function like:\n\u001b[36mmain! = |arg| { ... }\u001b[0m\n \u001b[90m ┌─ /opt/test-runner/tests/empty-file/empty-file-test.roc:1:1\n\u001b[0m \u001b[90m │\n\u001b[0m"
 }
