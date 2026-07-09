@@ -10,8 +10,9 @@ WORKDIR /opt/test-runner
 COPY bin/download-dependencies.roc bin/download-dependencies.roc
 
 # download & install roc and the basic-cli platform
-RUN curl --proto '=https' --tlsv1.2 -sSf https://roc-lang.org/install_roc.sh | ROC_CONTINUE_IF_STALE=y ROC_ADD_TO_PATH=n sh \
-    && sh -c "ln -s /opt/test-runner/roc*/roc /opt/test-runner/bin/roc" \
+ADD https://roc-lang.org/install_roc.sh /tmp/install_roc.sh
+RUN ROC_CONTINUE_IF_STALE=y ROC_ADD_TO_PATH=n sh /tmp/install_roc.sh \
+    && ln -s /opt/test-runner/roc*/roc /opt/test-runner/bin/roc \
     && /opt/test-runner/bin/roc test bin/download-dependencies.roc
 
 ENV PATH="$PATH:/opt/test-runner/bin"
