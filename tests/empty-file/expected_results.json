@@ -1,5 +1,5 @@
 {
   "version": 1,
   "status": "error",
-  "message": "-- \u001b[1m\u001b[31mMISSING MAIN! FUNCTION\u001b[0m ------------------------\n\nDefault app modules must have a \u001b[36mmain!\u001b[0m function.\n\nNo \u001b[36mmain!\u001b[0m function was found.\n\nAdd a main! function like:\n\u001b[36mmain! = |arg| { ... }\u001b[0m\n \u001b[90m ┌─ /opt/test-runner/tests/empty-file/empty-file-test.roc:1:1\n\u001b[0m \u001b[90m │\n\u001b[0m"
+  "message": "All (0) tests passed.\n\n┌──────────────────────────┐\n│ MISSING `MAIN!` FUNCTION ├─ Default app modules must have a `main!` ────────┐\n└┬─────────────────────────┘  function.                                       │\n │                                                                            │\n │                                                                            │\n │  ‾                                                                         │\n └────────────────────────────────────────────────────────────────────────────┘\n    /Users/ageron/dev/roc/exercism/exercism-roc-test-runner/tests/empty-file/empty-file-test.roc:1:1\n\n    No `main!` function was found.\n\n    Add a main! function like:\n    `main! = |arg| { ... }`"
 }

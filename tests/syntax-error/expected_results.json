@@ -1,5 +1,5 @@
 {
   "version": 1,
   "status": "error",
-  "message": "-- \u001b[1m\u001b[31mPARSE ERROR\u001b[0m -----------------------------------\n\nA parsing error occurred: \u001b[2mincomplete_import\u001b[0m\nThis is an unexpected parsing error. Please check your syntax.\n\n \u001b[90m ┌─ /opt/test-runner/tests/syntax-error/syntax-error-test.roc:1:8\n\u001b[0m \u001b[90m │\n\u001b[0m\u001b[90m1 │ \u001b[0m\u001b[31mimport (\u001b[0m\n\u001b[90m  │ \u001b[0m       \u001b[31m^\u001b[0m"
+  "message": "\n┌───────────────────┐\n│ INCOMPLETE IMPORT ├─ I was parsing an import, and the module path is ───────┐\n└┬──────────────────┘  incomplete.                                            │\n │                                                                            │\n │  import (                                                                  │\n │         ‾                                                                  │\n └────────────────────────────────────────────────────────────────────────────┘\n    /Users/ageron/dev/roc/exercism/exercism-roc-test-runner/tests/syntax-error/syntax-error-test.roc:1:8\n\n    Imports must name a module, optionally with a qualifier and exposing list.\n\n    For example:\n        import Json.Decode exposing [decode]\n\n    I found `(` here."
 }
