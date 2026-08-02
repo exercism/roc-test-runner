@@ -1,12 +1,12 @@
 app [main!] {
-    pf: platform "https://github.com/roc-lang/basic-cli/releases/download/0.20.0/X73hGh05nNTkDHU06FHC0YfFaQB1pimX7gncRcao5mU.tar.br",
-    isodate: "https://github.com/imclerran/roc-isodate/releases/download/v0.6.2/73w_H-aSJNcWqtXvMG4JQw_HoaApMBLnE92XD4OcVGU.tar.br",
-    json: "https://github.com/lukewilliamboswell/roc-json/releases/download/0.13.0/RqendgZw5e1RsQa3kFhgtnMP8efWoqGRsAvubx4-zus.tar.br",
-    parser: "https://github.com/lukewilliamboswell/roc-parser/releases/download/0.10.0/6eZYaXkrakq9fJ4oUc0VfdxU1Fap2iTuAN18q9OgQss.tar.br",
-    unicode: "https://github.com/roc-lang/unicode/releases/download/0.3.0/9KKFsA4CdOz0JIOL7iBSI_2jGIXQ6TsFBXgd086idpY.tar.br",
+	pf: platform "https://github.com/roc-lang/basic-cli/releases/download/0.21.0/4rAQg8kUYZ3Vksr4qMQHpaFYNiHSn9GgS7gVxghd1XYV.tar.zst",
+	isodate: "https://github.com/ageron/roc-isodate/releases/download/0.8.0/B2h6tefXQtEz9VG6QukLDBoGXhRtwGLj9sZHDEJaTHkS.tar.zst",
+	parser: "https://github.com/lukewilliamboswell/roc-parser/releases/download/1.0.2/FrnJ4RGDKpQyoDyESNoBwFNviY4ZGbMVLnUjW9tvSRjk.tar.zst",
+	unicode: "https://github.com/roc-lang/unicode/releases/download/2.0.0/9ZvqNzsNkpqFmGTeATAY3BNBD7mP41jqZx2w2N19tBvh.tar.zst",
 }
 
-expect Bool.true
+expect Bool.True
 
-main! = |_args|
-    Ok({})
+main! = |_args| {
+	Ok({})
+}

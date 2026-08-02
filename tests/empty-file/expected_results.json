@@ -1,5 +1,5 @@
 {
   "version": 1,
   "status": "error",
-  "message": "\u001b[1;36m── MISSING HEADER in tests/empty-file/empty-file-test.roc ──────────────────────\u001b[0m\n\nI am expecting a header, but got stuck here:\n\n\u001b[1;36m1\u001b[0m\u001b[1;36m│\u001b[0m\n    \u001b[1;31m^\u001b[0m\n\nI am expecting a module keyword next, one of \u001b[1;32minterface\u001b[0m, \u001b[1;32mapp\u001b[0m, \u001b[1;32mpackage\u001b[0m\nor \u001b[1;32mplatform\u001b[0m."
+  "message": "All (0) tests passed.\n\n┌──────────────────────────┐\n│ MISSING `MAIN!` FUNCTION ├─ Default app modules must have a `main!` ────────┐\n└┬─────────────────────────┘  function.                                       │\n │                                                                            │\n │                                                                            │\n │  ‾                                                                         │\n └───────────────── /opt/test-runner/tests/empty-file/empty-file-test.roc:1:1 ┘\n\n    No `main!` function was found.\n\n    Add a main! function like:\n    `main! = |arg| { ... }`"
 }

@@ -1,5 +1,5 @@
 {
   "version": 1,
   "status": "error",
-  "message": "\u001b[1;36m── UNFINISHED IMPORT in tests/syntax-error/syntax-error-test.roc ───────────────\u001b[0m\n\nI was partway through parsing an \u001b[1;32mimport\u001b[0m, but I got stuck here:\n\n\u001b[1;36m3\u001b[0m\u001b[1;36m│\u001b[0m  \u001b[37mimport (\u001b[0m\n           \u001b[1;31m^\u001b[0m\n\nI was expecting to see a module name, like:\n\n    \u001b[1;33mimport BigNum\u001b[0m\n\nOr a package module name, like:\n\n    \u001b[1;33mimport pf.Stdout\u001b[0m\n\nOr a file path to ingest, like:\n\n    \u001b[1;33mimport \"users.json\" as users : Str\u001b[0m"
+  "message": "\n┌───────────────────┐\n│ INCOMPLETE IMPORT ├─ I was parsing an import, and the module path is ───────┐\n└┬──────────────────┘  incomplete.                                            │\n │                                                                            │\n │  import (                                                                  │\n │         ‾                                                                  │\n └───────────── /opt/test-runner/tests/syntax-error/syntax-error-test.roc:1:8 ┘\n\n    Imports must name a module, optionally with a qualifier and exposing list.\n\n    For example:\n        import Json.Decode exposing [decode]\n\n    I found `(` here."
 }
