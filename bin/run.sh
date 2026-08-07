@@ -44,7 +44,11 @@ else
     # OPTIONAL: Sanitize the output
     # In some cases, the test output might be overly verbose, in which case stripping
     # the unneeded information can be very helpful to the student
-    sanitized_test_output=$(printf "%s\n" "${test_output}" | sed -E 's/( \(cached\))? in [0-9.]+ ?ms([.:]?)$/\2/')
+    # Strip the nondeterministic timings, e.g. "Ran 2 tests in 4.8 ms.:" -> "Ran 2 tests:"
+    # and "All (2) tests passed in 4.8 ms." -> "All (2) tests passed."
+    sanitized_test_output=$(printf "%s\n" "${test_output}" \
+        | sed -E -e 's/( \(cached\))? in [0-9.]+ ?ms\.:$/:/' \
+                 -e 's/( \(cached\))? in [0-9.]+ ?ms([.:]?)$/\2/')
 
     # OPTIONAL: Manually add colors to the output to help scanning the output for errors
     # If the test output does not contain colors to help identify failing (or passing)
