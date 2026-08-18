@@ -41,9 +41,9 @@ RUN if [ "$TARGETARCH" = "arm64" ]; then \
     && echo "Verifying checksum..." \
     && echo "${ROC_SHA256}  /tmp/${ROC_FILENAME}" | sha256sum -c - \
     && echo "Extracting..." \
-    && tar -xzf /tmp/${ROC_FILENAME} -C /opt/test-runner \
-    && rm /tmp/${ROC_FILENAME} \
-    && ln -s /opt/test-runner/roc_nightly-linux_${ROC_ARCH}-${ROC_VERSION_DATE}-${ROC_BUILD_ID}/roc /opt/test-runner/bin/roc \
+    && tar -xzf "/tmp/${ROC_FILENAME}" -C /opt/test-runner \
+    && rm "/tmp/${ROC_FILENAME}" \
+    && ln -s "/opt/test-runner/roc_nightly-linux_${ROC_ARCH}-${ROC_VERSION_DATE}-${ROC_BUILD_ID}/roc" /opt/test-runner/bin/roc \
     && /opt/test-runner/bin/roc test bin/download-dependencies.roc
 
 ENV PATH="$PATH:/opt/test-runner/bin"
