@@ -4,11 +4,13 @@
 # Ubuntu or Roc and break things. With pinned releases, we can safely upgrade
 # the roc-test-runner and the Roc track exercises at the same time.
 #
-# To upgrade to the latest Ubuntu 24.04, run ./bin/upgrade-ubuntu.sh
+# Note: using the same Ubuntu image across many test runners reduces disk space
+# so it's best to coordinate with the Exercism team before changing the digest.
+#
 # To upgrade to the latest Roc nightly, run ./bin/upgrade-roc-nightly.sh
 #
 ####
-FROM ubuntu:24.04@sha256:561618e2c15bf2397621dd04f96926663a3b5616c189cf7e38db7e82f5c538ea
+FROM ubuntu:24.04@sha256:c4a8d5503dfb2a3eb8ab5f807da5bc69a85730fb49b5cfca2330194ebcc41c7b
 
 ARG ROC_VERSION_DATE="2026-08-17"
 ARG ROC_BUILD_ID="b9ca140"
