@@ -22,6 +22,6 @@ echo "✅ Found latest digest: $DIGEST"
 
 # 3. Update the Dockerfile (creating a temporary .bak file for Mac compatibility)
 sed -i.bak -E "s|^FROM ubuntu:24.04@sha256:[a-f0-9]+|FROM ubuntu:24.04@$DIGEST|" Dockerfile
-rm -f Dockerfile.bak
+rm Dockerfile.bak
 
 echo "✅ Dockerfile updated successfully!"
