@@ -11,7 +11,7 @@ ROC_AMD64=$(grep '^SHA_LINUX_X86_64=' <<< "$SCRIPT" | cut -d '"' -f 2)
 ROC_ARM64=$(grep '^SHA_LINUX_ARM64=' <<< "$SCRIPT" | cut -d '"' -f 2)
 
 # 2. Verify we actually found all four values
-if [ -z "$ROC_DATE" ] || [ -z "$ROC_BUILD" ] || [ -z "$ROC_AMD64" ] || [ -z "$ROC_ARM64" ]; then
+if [[ -z "$ROC_DATE" || -z "$ROC_BUILD" || -z "$ROC_AMD64" || -z "$ROC_ARM64" ]]; then
   echo "❌ Error: Failed to parse one or more variables from install_roc.sh."
   exit 1
 fi
