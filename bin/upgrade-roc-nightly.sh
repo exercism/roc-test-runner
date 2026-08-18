@@ -23,6 +23,6 @@ sed -i.bak "s/^ARG ROC_VERSION_DATE=.*/ARG ROC_VERSION_DATE=\"$ROC_DATE\"/" Dock
 sed -i.bak "s/^ARG ROC_BUILD_ID=.*/ARG ROC_BUILD_ID=\"$ROC_BUILD\"/" Dockerfile
 sed -i.bak "s/^ARG ROC_SHA256_AMD64=.*/ARG ROC_SHA256_AMD64=\"$ROC_AMD64\"/" Dockerfile
 sed -i.bak "s/^ARG ROC_SHA256_ARM64=.*/ARG ROC_SHA256_ARM64=\"$ROC_ARM64\"/" Dockerfile
-rm -f Dockerfile.bak
+rm Dockerfile.bak
 
 echo "✅ Dockerfile updated successfully!"
