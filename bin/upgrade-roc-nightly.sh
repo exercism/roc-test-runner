@@ -5,10 +5,10 @@ echo "Downloading the latest install_roc.sh script..."
 SCRIPT=$(curl -sL https://roc-lang.org/install_roc.sh)
 
 # 1. Parse the hardcoded variables from the script
-ROC_DATE=$(echo "$SCRIPT" | grep '^VERSION_DATE=' | cut -d '"' -f 2)
-ROC_BUILD=$(echo "$SCRIPT" | grep '^BUILD_ID=' | cut -d '"' -f 2)
-ROC_AMD64=$(echo "$SCRIPT" | grep '^SHA_LINUX_X86_64=' | cut -d '"' -f 2)
-ROC_ARM64=$(echo "$SCRIPT" | grep '^SHA_LINUX_ARM64=' | cut -d '"' -f 2)
+ROC_DATE=$(grep '^VERSION_DATE=' <<< "$SCRIPT" | cut -d '"' -f 2)
+ROC_BUILD=$(grep '^BUILD_ID=' <<< "$SCRIPT" | cut -d '"' -f 2)
+ROC_AMD64=$(grep '^SHA_LINUX_X86_64=' <<< "$SCRIPT" | cut -d '"' -f 2)
+ROC_ARM64=$(grep '^SHA_LINUX_ARM64=' <<< "$SCRIPT" | cut -d '"' -f 2)
 
 # 2. Verify we actually found all four values
 if [ -z "$ROC_DATE" ] || [ -z "$ROC_BUILD" ] || [ -z "$ROC_AMD64" ] || [ -z "$ROC_ARM64" ]; then
