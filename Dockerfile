@@ -47,3 +47,4 @@ RUN if [ "$TARGETARCH" = "arm64" ]; then \
 ENV PATH="$PATH:/opt/test-runner/bin"
 COPY . .
 ENTRYPOINT ["/opt/test-runner/bin/run.sh"]
+
