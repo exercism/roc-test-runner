@@ -13,7 +13,7 @@ DIGEST=$(curl -s -I -H "Authorization: Bearer $TOKEN" \
   "https://registry-1.docker.io/v2/library/ubuntu/manifests/24.04" | \
   grep -i '^docker-content-digest:' | awk '{print $2}' | tr -d $'\r')
 
-if [ -z "$DIGEST" ]; then
+if [[ -z "$DIGEST" ]]; then
   echo "❌ Error: Could not retrieve digest."
   exit 1
 fi
