@@ -37,7 +37,7 @@ RUN if [ "$TARGETARCH" = "arm64" ]; then \
     && export ROC_FILENAME="roc_nightly-linux_${ROC_ARCH}-${ROC_VERSION_DATE}-${ROC_BUILD_ID}.tar.gz" \
     && export ROC_URL="https://github.com/roc-lang/nightlies/releases/download/nightly-${ROC_VERSION_DATE}-${ROC_BUILD_ID}/${ROC_FILENAME}" \
     && echo "Downloading ${ROC_URL}..." \
-    && curl -fL -o /tmp/${ROC_FILENAME} ${ROC_URL} \
+    && curl -fL -o "/tmp/${ROC_FILENAME}" "${ROC_URL}" \
     && echo "Verifying checksum..." \
     && echo "${ROC_SHA256}  /tmp/${ROC_FILENAME}" | sha256sum -c - \
     && echo "Extracting..." \
