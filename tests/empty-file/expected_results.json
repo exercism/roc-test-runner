@@ -1,5 +1,4 @@
 {
   "version": 1,
-  "status": "error",
-  "message": "\u001b[90m── \u001b[31m✗ missing `main!` function \u001b[90m─ \u001b[90m/opt/test-runner/tests/empty-file/\u001b[36mempty-file-test.roc\u001b[90m:1:1\u001b[0m\n\nDefault app modules must have a \u001b[36mmain!\u001b[0m function.\n\n\n\u001b[31m^\u001b[0m\n\nNo \u001b[36mmain!\u001b[0m function was found.\n\nAdd a main! function like:\n\u001b[36mmain! = |arg| { ... }\u001b[0m\n\nAll (0) tests passed."
+  "status": "pass"
 }
