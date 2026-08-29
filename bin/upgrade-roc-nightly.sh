@@ -10,9 +10,14 @@ if [[ -z "$TAG_NAME" || "$TAG_NAME" == "null" ]]; then
   exit 1
 fi
 
-# Tag format: nightly-YYYY-MM-DD-BUILD_ID
-ROC_DATE=$(echo "$TAG_NAME" | cut -d '-' -f 2-4)
-ROC_BUILD=$(echo "$TAG_NAME" | cut -d '-' -f 5)
+# TAG_NAME format: nightly-YYYY-MM-DD-BUILD_ID
+
+# 1. Extract the Build ID (strip everything up to the last hyphen)
+ROC_BUILD="${TAG_NAME##*-}"
+
+# 2. Extract the Date (strip the first component, then strip the last component)
+ROC_DATE="${TAG_NAME#*-}"     # Strips "nightly-"
+ROC_DATE="${ROC_DATE%-*}"     # Strips "-BUILD_ID"
 
 echo "Extracting SHA256 checksums from release data..."
 ROC_AMD64_RAW=$(jq -r '.assets[] | select(.name | contains("linux_x86_64") and endswith(".tar.gz")) | .digest' <<< "$LATEST_RELEASE")
