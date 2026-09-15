@@ -31,10 +31,19 @@ mkdir -p "${output_dir}"
 
 echo "${slug}: testing..."
 
-# Run the tests for the provided implementation file and redirect stdout and
-# stderr to capture it
+# Run the tests for the provided implementation file and capture the compiler
+# version, stdout, and stderr.
 
-test_output=$(FORCE_COLOR=1 roc test --no-cache "${solution_dir%/}/${slug}-test.roc" 2>&1)
+test_file="${solution_dir%/}/${slug}-test.roc"
+test_output=$(
+    esc=$(printf '\033')
+    {
+        roc version \
+            | sed -E "s/^(Roc compiler version )(.*)$/${esc}[90m\\1${esc}[36m\\2${esc}[0m/"
+
+        FORCE_COLOR=1 roc test --no-cache "${test_file}"
+    } 2>&1
+)
 
 # Write the results.json file based on the exit code of the command that was
 # just executed that tested the implementation file
