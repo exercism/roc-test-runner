@@ -1,5 +1,5 @@
 {
   "version": 1,
   "status": "fail",
-  "message": "\u001b[90mRoc compiler version \u001b[36mnightly-2026-09-15-fe09c42\u001b[0m\n\n\u001b[90m── \u001b[31m✗ fail \u001b[90m───────────────────────── \u001b[90mtests/partial-fail/\u001b[36mpartial-fail-test.roc\u001b[90m:2:1\u001b[0m\n\nexpect \"hello\" == \"good bye\"\n\u001b[31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^\u001b[0m\n\nRan 2 tests:\n    \u001b[32m1\u001b[0m passed\n    \u001b[31m1\u001b[0m failed\n    \u001b[33m0\u001b[0m compiler errors"
+  "message": "\u001b[90mRoc compiler version \u001b[36mnightly-2026-09-12-220fd47\u001b[0m\n\n\u001b[90m── \u001b[31m✗ fail \u001b[90m───────────────────────── \u001b[90mtests/partial-fail/\u001b[36mpartial-fail-test.roc\u001b[90m:2:1\u001b[0m\n\nexpect \"hello\" == \"good bye\"\n\u001b[31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^\u001b[0m\n\nRan 2 tests:\n    \u001b[32m1\u001b[0m passed\n    \u001b[31m1\u001b[0m failed\n    \u001b[33m0\u001b[0m compiler errors"
 }
