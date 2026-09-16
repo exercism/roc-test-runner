@@ -20,15 +20,13 @@ ROC_DATE="${TAG_NAME#*-}"     # Strips "nightly-"
 ROC_DATE="${ROC_DATE%-*}"     # Strips "-BUILD_ID"
 
 echo "Extracting SHA256 checksums from release data..."
-ROC_AMD64_RAW=$(jq -r '.assets[] | select(.name | contains("linux_x86_64") and endswith(".tar.gz")) | .digest' <<< "$LATEST_RELEASE")
-ROC_ARM64_RAW=$(jq -r '.assets[] | select(.name | contains("linux_arm64") and endswith(".tar.gz")) | .digest' <<< "$LATEST_RELEASE")
+ROC_SHA256_RAW=$(jq -r '.assets[] | select(.name | contains("linux_x86_64") and endswith(".tar.gz")) | .digest' <<< "$LATEST_RELEASE")
 
 # Strip the "sha256:" prefix
-ROC_AMD64=${ROC_AMD64_RAW#sha256:}
-ROC_ARM64=${ROC_ARM64_RAW#sha256:}
+ROC_SHA256=${ROC_SHA256_RAW#sha256:}
 
-if [[ -z "$ROC_AMD64" || -z "$ROC_ARM64" ]]; then
-  echo "❌ Error: Failed to extract SHA256 checksums from GitHub API."
+if [[ -z "$ROC_SHA256" || "$ROC_SHA256" == "null" ]]; then
+  echo "❌ Error: Failed to extract the linux_x86_64 SHA256 checksum from GitHub API."
   exit 1
 fi
 
@@ -37,8 +35,7 @@ echo "✅ Found latest nightly: $ROC_DATE ($ROC_BUILD)"
 # Update the ARG values in the Dockerfile
 sed -i.bak "s/^ARG ROC_VERSION_DATE=.*/ARG ROC_VERSION_DATE=\"$ROC_DATE\"/" Dockerfile
 sed -i.bak "s/^ARG ROC_BUILD_ID=.*/ARG ROC_BUILD_ID=\"$ROC_BUILD\"/" Dockerfile
-sed -i.bak "s/^ARG ROC_SHA256_AMD64=.*/ARG ROC_SHA256_AMD64=\"$ROC_AMD64\"/" Dockerfile
-sed -i.bak "s/^ARG ROC_SHA256_ARM64=.*/ARG ROC_SHA256_ARM64=\"$ROC_ARM64\"/" Dockerfile
+sed -i.bak "s/^ARG ROC_SHA256=.*/ARG ROC_SHA256=\"$ROC_SHA256\"/" Dockerfile
 rm Dockerfile.bak
 
 echo "✅ Dockerfile updated successfully!"

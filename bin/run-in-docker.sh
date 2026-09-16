@@ -32,11 +32,12 @@ output_dir=$(realpath "${3%/}")
 # Create the output directory if it doesn't exist
 mkdir -p "${output_dir}"
 
-# Build the Docker image
-docker build --rm -t exercism/roc-test-runner .
+# Build the AMD64 Docker image used by Exercism production.
+docker build --platform linux/amd64 --rm -t exercism/roc-test-runner .
 
 # Run the Docker image using the settings mimicking the production environment
 docker run \
+    --platform linux/amd64 \
     --rm \
     --network none \
     --read-only \
