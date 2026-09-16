@@ -1,5 +1,5 @@
 {
   "version": 1,
   "status": "error",
-  "message": "\u001b[90mRoc compiler version \u001b[36mnightly-2026-09-15-fe09c42\u001b[0m\n\u001b[90m── \u001b[31m✗ incomplete import \u001b[90m──────────── \u001b[90mtests/syntax-error/\u001b[36msyntax-error-test.roc\u001b[90m:1:8\u001b[0m\n\nI was parsing an import, and the module path is incomplete.\n\nimport (\n       \u001b[31m^\u001b[0m\n\nImports must name a module, optionally with a qualifier and exposing list.\n\nFor example:\n    import Json/Decode exposing [decode]\n\nI found \u001b[36m(\u001b[0m here."
+  "message": "\u001b[90mRoc compiler version \u001b[36mnightly-2026-09-12-220fd47\u001b[0m\n\u001b[90m── \u001b[31m✗ incomplete import \u001b[90m──────────── \u001b[90mtests/syntax-error/\u001b[36msyntax-error-test.roc\u001b[90m:1:8\u001b[0m\n\nI was parsing an import, and the module path is incomplete.\n\nimport (\n       \u001b[31m^\u001b[0m\n\nImports must name a module, optionally with a qualifier and exposing list.\n\nFor example:\n    import Json/Decode exposing [decode]\n\nI found \u001b[36m(\u001b[0m here."
 }
