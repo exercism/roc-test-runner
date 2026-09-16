@@ -25,7 +25,7 @@ ROC_SHA256_RAW=$(jq -r '.assets[] | select(.name | contains("linux_x86_64") and 
 # Strip the "sha256:" prefix
 ROC_SHA256=${ROC_SHA256_RAW#sha256:}
 
-if [[ -z "$ROC_SHA256" || "$ROC_SHA256" == "null" ]]; then
+if [[ -z "$ROC_SHA256" ]]; then
   echo "❌ Error: Failed to extract the linux_x86_64 SHA256 checksum from GitHub API."
   exit 1
 fi
