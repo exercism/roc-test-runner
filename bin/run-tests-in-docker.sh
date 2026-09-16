@@ -16,7 +16,7 @@
 set -e
 
 # Build the AMD64 Docker image used by Exercism production.
-docker build --platform linux/amd64 --rm -t exercism/roc-test-runner .
+docker build --platform linux/amd64 -t exercism/roc-test-runner .
 
 # Run the Docker image using the settings mimicking the production environment
 docker run \
