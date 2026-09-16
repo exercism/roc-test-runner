@@ -20,7 +20,7 @@ ROC_DATE="${TAG_NAME#*-}"     # Strips "nightly-"
 ROC_DATE="${ROC_DATE%-*}"     # Strips "-BUILD_ID"
 
 echo "Extracting SHA256 checksums from release data..."
-ROC_SHA256_RAW=$(jq -r '.assets[] | select(.name | contains("linux_x86_64") and endswith(".tar.gz")) | .digest' <<< "$LATEST_RELEASE")
+ROC_SHA256_RAW=$(jq -r '.assets[] | select(.name | contains("linux_x86_64") and endswith(".tar.gz")) | .digest // ""' <<< "$LATEST_RELEASE")
 
 # Strip the "sha256:" prefix
 ROC_SHA256=${ROC_SHA256_RAW#sha256:}
