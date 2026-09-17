@@ -15,11 +15,17 @@
 # Stop executing when a command returns a non-zero return code
 set -e
 
-# Build the Docker image
-docker build --rm -t exercism/roc-test-runner .
+image="${TEST_RUNNER_IMAGE:-exercism/roc-test-runner}"
+
+# Build the AMD64 Docker image used by Exercism production. CI supplies an
+# already-built, cached image and skips this step.
+if [ "${SKIP_DOCKER_BUILD:-0}" != "1" ]; then
+    docker build --platform linux/amd64 -t "${image}" .
+fi
 
 # Run the Docker image using the settings mimicking the production environment
 docker run \
+    --platform linux/amd64 \
     --rm \
     --network none \
     --read-only \
@@ -28,4 +34,4 @@ docker run \
     --volume "${PWD}/bin/run-tests.sh:/opt/test-runner/bin/run-tests.sh" \
     --workdir /opt/test-runner \
     --entrypoint /opt/test-runner/bin/run-tests.sh \
-    exercism/roc-test-runner
+    "${image}"
