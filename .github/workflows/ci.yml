@@ -28,12 +28,11 @@ jobs:
           platforms: linux/amd64
           push: false
           load: true
-          tags: exercism/roc-test-runner:ci
+          tags: exercism/roc-test-runner
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
       - name: Run Tests in Docker
         env:
           SKIP_DOCKER_BUILD: "1"
-          TEST_RUNNER_IMAGE: exercism/roc-test-runner:ci
         run: bin/run-tests-in-docker.sh
