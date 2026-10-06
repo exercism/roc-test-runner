@@ -11,7 +11,7 @@
 #
 ####
 # Exercism deploys this test runner as a linux/amd64 image.
-FROM --platform=linux/amd64 ubuntu:24.04@sha256:c4a8d5503dfb2a3eb8ab5f807da5bc69a85730fb49b5cfca2330194ebcc41c7b
+FROM ubuntu:26.04@sha256:f144425ff09be612d6d9ad965196e9cdc23dae1f42110a8a11a3e9a8198759f7
 
 ARG ROC_VERSION_DATE="2026-10-04"
 ARG ROC_BUILD_ID="130536d"
@@ -19,7 +19,7 @@ ARG ROC_SHA256="893c86d2da0a4c390cbdbd4258ce45d686e5ec15b42eeeb811fd1ac44537714f
 
 RUN apt-get update --fix-missing \
     && apt-get upgrade --yes \
-    && apt-get install --yes curl jq tar ca-certificates \
+    && apt-get install --yes bash mawk curl jq tar ca-certificates \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -31,6 +31,7 @@ ENV PATH="$PATH:/opt/test-runner/bin"
 # Downloaded packages are cached separately in /root/.cache/roc/packages.
 ENV ROC_CACHE_DIR="/tmp/roc"
 
+# Download and remove the archive in the same layer so it is not kept in the image.
 RUN export ROC_FILENAME="roc_nightly-linux_x86_64-${ROC_VERSION_DATE}-${ROC_BUILD_ID}.tar.gz" \
     && export ROC_URL="https://github.com/roc-lang/nightlies/releases/download/nightly-${ROC_VERSION_DATE}-${ROC_BUILD_ID}/${ROC_FILENAME}" \
     && echo "Downloading ${ROC_URL}..." \

@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Synopsis:
 # Run the test runner on a solution.
@@ -23,16 +23,13 @@ fi
 
 runner_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 work=$(mktemp -d)
-trap 'rm -rf "$work"' EXIT HUP INT TERM
+trap 'rm -rf "$work"' EXIT
 
 slug="$1"
 solution_dir=$(realpath "${2%/}")
+mkdir -p "${3%/}"
 output_dir=$(realpath "${3%/}")
-mkdir -p "${output_dir}"
 results_file="${output_dir}/results.json"
-
-# Create the output directory if it doesn't exist
-mkdir -p "${output_dir}"
 
 echo "${slug}: testing..."
 
@@ -40,33 +37,33 @@ echo "${slug}: testing..."
 # version, stdout, and stderr.
 
 test_file="${solution_dir%/}/${slug}-test.roc"
-test_output=$(
+# Capture output without a subshell so the test status stays in this shell.
+test_status=-1  # Tests did not run (for example, compilation failed).
+platform_test=false
+{
     esc=$(printf '\033')
-    {
-        roc version \
-            | sed -E "s/^(Roc compiler version )(.*)$/${esc}[90m\\1${esc}[36m\\2${esc}[0m/"
+    roc version \
+        | sed -E "s/^(Roc compiler version )(.*)$/${esc}[90m\\1${esc}[36m\\2${esc}[0m/"
 
-        if "$runner_dir/is-platform-test" "$test_file"; then
-            # Build separately so compiler errors are not mistaken for failed assertions.
-            build_output=$(FORCE_COLOR=1 roc build --opt=speed --no-cache "$test_file" --output="$work/tests" 2>&1)
-            status=$?
-            if [ "$status" -ne 0 ]; then
-                printf '%s\n' "$build_output"
-                exit "$status"
-            fi
-            "$work/tests"
-            status=$?
-            printf '%s\n' "$status" > "$work/runtime-status"
-            exit "$status"
+    if "$runner_dir/is-platform-test" "$test_file"; then
+        platform_test=true
+        # Build separately so compiler errors are not mistaken for failed assertions.
+        if ! build_output=$(FORCE_COLOR=1 roc build --opt=speed --no-cache "$test_file" --output="$work/tests" 2>&1); then
+            printf '%s\n' "$build_output"
         else
-            FORCE_COLOR=1 roc test --no-cache "$test_file"
+            "$work/tests"
+            test_status=$?
         fi
-    } 2>&1
-)
+    else
+        FORCE_COLOR=1 roc test --no-cache "$test_file"
+        test_status=$?
+    fi
+} > "$work/output" 2>&1
+test_output=$(cat "$work/output")
 
 # Write the results.json file based on the exit code of the command that was
 # just executed that tested the implementation file
-if [ $? -eq 0 ]; then
+if [ "$test_status" -eq 0 ]; then
     jq -n '{version: 1, status: "pass"}' > "${results_file}"
 else
     # OPTIONAL: Sanitize the output
@@ -87,13 +84,15 @@ else
     #      | GREP_COLOR='01;31' grep --color=always -E -e '^(ERROR:.*|.*failed)$|$' \
     #      | GREP_COLOR='01;32' grep --color=always -E -e '^.*passed$|$')
 
-    if { [ -f "$work/runtime-status" ] && [ "$(cat "$work/runtime-status")" = 1 ]; } ||
-       { [ ! -f "$work/runtime-status" ] && printf "%s\n" "$sanitized_test_output" | grep -q -E '^Ran [0-9]+ tests'; }; then
+    if { "$platform_test" && [ "$test_status" -eq 1 ]; } ||
+       { ! "$platform_test" && printf "%s\n" "$sanitized_test_output" | grep -q -E '^Ran [0-9]+ tests'; }; then
         roc_status="fail"
     else
         roc_status="error"
     fi
-    jq -n --arg output "${sanitized_test_output}" "{version: 1, status: \"$roc_status\", message: \$output}" > "${results_file}"
+    jq -n --arg output "${sanitized_test_output}" --arg status "${roc_status}" '
+        {version: 1, status: $status, message: $output}
+    ' > "${results_file}"
 fi
 
 echo "${slug}: done"
