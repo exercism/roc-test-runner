@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "status": "error",
+  "message": "\u001b[90mRoc compiler version \u001b[36mnightly-2026-10-04-130536d\u001b[0m\n\u001b[90m── \u001b[31m✗ type mismatch \u001b[90m─ \u001b[90mtests/platform-compile-error/\u001b[36mplatform-compile-error-test.roc\u001b[90m:10:2\u001b[0m\n\nThis string literal is being used where a non-string type is needed.\n\n\"not an exit code\"\n\u001b[31m^^^^^^^^^^^^^^^^^^\u001b[0m\n\nThe type was determined to be:\n\n    Try({}, [Exit(I8)])\n\n\u001b[31m1\u001b[0m error and \u001b[32m0\u001b[0m warnings found while successfully building:\n\n    <test executable>"
+}

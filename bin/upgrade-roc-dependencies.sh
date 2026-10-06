@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Update the basic-cli platform and every package URL in
-# bin/download-dependencies.roc to their latest stable GitHub releases.
+# Update every declared platform/package to its latest stable GitHub release.
+# Keep fixture URLs synchronized with the dependency apps.
 #
 # A stable release is neither a GitHub prerelease/draft nor a tag containing
 # an alpha, beta, or release-candidate marker.
 
 repo_root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
-dependencies_file="${repo_root}/bin/download-dependencies.roc"
+dependencies_dir="${repo_root}/dependencies"
 github_api_url="${GITHUB_API_URL:-https://api.github.com}"
 
 require_command() {
@@ -42,14 +42,15 @@ require_command curl
 require_command jq
 require_command sed
 
-if [[ ! -f "$dependencies_file" ]]; then
-    echo "Error: dependency file not found: $dependencies_file" >&2
-    exit 1
-fi
-
-work_file=$(mktemp "${dependencies_file}.XXXXXX")
-trap 'rm -f "$work_file"' EXIT
-cp "$dependencies_file" "$work_file"
+work_dir=$(mktemp -d)
+trap 'rm -rf "$work_dir"' EXIT
+files=()
+while IFS= read -r -d '' file; do
+    files+=("$file")
+    relative=${file#"$repo_root/"}
+    mkdir -p "$work_dir/$(dirname "$relative")"
+    cp "$file" "$work_dir/$relative"
+done < <(find "$dependencies_dir" "$repo_root/tests" -type f -name '*.roc' -print0)
 
 updated_count=0
 url_count=0
@@ -98,18 +99,20 @@ while IFS= read -r old_url; do
 
     old_url_pattern=$(printf '%s' "$old_url" | escape_sed_pattern)
     new_url_replacement=$(printf '%s' "$new_url" | escape_sed_replacement)
-    next_work_file=$(mktemp "${dependencies_file}.XXXXXX")
-    sed "s#${old_url_pattern}#${new_url_replacement}#g" "$work_file" > "$next_work_file"
-    mv "$next_work_file" "$work_file"
+    for file in "${files[@]}"; do
+        work_file="$work_dir/${file#"$repo_root/"}"
+        sed "s#${old_url_pattern}#${new_url_replacement}#g" "$work_file" > "$work_file.next"
+        mv "$work_file.next" "$work_file"
+    done
 
     echo "${repository}: ${tag_name}"
     ((updated_count += 1))
 done < <(
-    grep -oE 'https://github\.com/[^/[:space:]"]+/[^/[:space:]"]+/releases/download/[^/[:space:]"]+/[^/[:space:]"]+\.tar\.zst' "$dependencies_file"
+    grep -hoE 'https://github\.com/[^/[:space:]"]+/[^/[:space:]"]+/releases/download/[^/[:space:]"]+/[^/[:space:]"]+\.tar\.zst' "$dependencies_dir"/*.roc | sort -u
 )
 
 if (( url_count == 0 )); then
-    echo "Error: no GitHub package URLs found in $dependencies_file" >&2
+    echo "Error: no GitHub package URLs found in $dependencies_dir" >&2
     exit 1
 fi
 
@@ -118,6 +121,7 @@ if (( updated_count == 0 )); then
     exit 0
 fi
 
-mv "$work_file" "$dependencies_file"
-trap - EXIT
-echo "Updated ${updated_count} package URL(s) in bin/download-dependencies.roc."
+for file in "${files[@]}"; do
+    cp "$work_dir/${file#"$repo_root/"}" "$file"
+done
+echo "Updated ${updated_count} dependency URL(s)."

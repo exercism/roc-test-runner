@@ -13,9 +13,9 @@
 # Exercism deploys this test runner as a linux/amd64 image.
 FROM --platform=linux/amd64 ubuntu:24.04@sha256:c4a8d5503dfb2a3eb8ab5f807da5bc69a85730fb49b5cfca2330194ebcc41c7b
 
-ARG ROC_VERSION_DATE="2026-09-12"
-ARG ROC_BUILD_ID="220fd47"
-ARG ROC_SHA256="c2ba90f59bedf0b3617c085f5aec7854cf5fe8127a7cdca6d0509c3525a73b78"
+ARG ROC_VERSION_DATE="2026-10-04"
+ARG ROC_BUILD_ID="130536d"
+ARG ROC_SHA256="893c86d2da0a4c390cbdbd4258ce45d686e5ec15b42eeeb811fd1ac44537714f"
 
 RUN apt-get update --fix-missing \
     && apt-get upgrade --yes \
@@ -24,7 +24,12 @@ RUN apt-get update --fix-missing \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt/test-runner
-COPY bin/download-dependencies.roc bin/download-dependencies.roc
+COPY dependencies/ dependencies/
+COPY bin/download-dependencies.sh bin/is-platform-test bin/
+ENV PATH="$PATH:/opt/test-runner/bin"
+# Roc writes temporary build files here even with --no-cache.
+# Downloaded packages are cached separately in /root/.cache/roc/packages.
+ENV ROC_CACHE_DIR="/tmp/roc"
 
 RUN export ROC_FILENAME="roc_nightly-linux_x86_64-${ROC_VERSION_DATE}-${ROC_BUILD_ID}.tar.gz" \
     && export ROC_URL="https://github.com/roc-lang/nightlies/releases/download/nightly-${ROC_VERSION_DATE}-${ROC_BUILD_ID}/${ROC_FILENAME}" \
@@ -36,8 +41,7 @@ RUN export ROC_FILENAME="roc_nightly-linux_x86_64-${ROC_VERSION_DATE}-${ROC_BUIL
     && tar -xzf "/tmp/${ROC_FILENAME}" -C /opt/test-runner \
     && rm "/tmp/${ROC_FILENAME}" \
     && ln -s "/opt/test-runner/roc_nightly-linux_x86_64-${ROC_VERSION_DATE}-${ROC_BUILD_ID}/roc" /opt/test-runner/bin/roc \
-    && /opt/test-runner/bin/roc test bin/download-dependencies.roc
+    && bin/download-dependencies.sh
 
-ENV PATH="$PATH:/opt/test-runner/bin"
 COPY . .
 ENTRYPOINT ["/opt/test-runner/bin/run.sh"]

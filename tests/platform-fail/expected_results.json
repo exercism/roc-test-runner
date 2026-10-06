@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "status": "fail",
+  "message": "\u001b[90mRoc compiler version \u001b[36mnightly-2026-10-04-130536d\u001b[0m\nwrong total: expected [99], actual [30] (workers: 2)\n0 passed, 1 failed"
+}
