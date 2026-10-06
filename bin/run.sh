@@ -27,8 +27,8 @@ trap 'rm -rf "$work"' EXIT HUP INT TERM
 
 slug="$1"
 solution_dir=$(realpath "${2%/}")
-mkdir -p "${3%/}"
 output_dir=$(realpath "${3%/}")
+mkdir -p "${output_dir}"
 results_file="${output_dir}/results.json"
 
 # Create the output directory if it doesn't exist
