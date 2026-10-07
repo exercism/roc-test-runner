@@ -63,7 +63,7 @@ test_output=$(cat "$work/output")
 
 # Write the results.json file based on the exit code of the command that was
 # just executed that tested the implementation file
-if [ "$test_status" -eq 0 ]; then
+if (( "$test_status" == 0 )); then
     jq -n '{version: 1, status: "pass"}' > "${results_file}"
 else
     # OPTIONAL: Sanitize the output
