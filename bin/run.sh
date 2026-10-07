@@ -16,7 +16,7 @@
 # ./bin/run.sh two-fer path/to/solution/folder/ path/to/output/directory/
 
 # If any required arguments is missing, print the usage and exit
-if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
+if [[ -z "$1" || -z "$2" || -z "$3" ]]; then
     echo "usage: ./bin/run.sh exercise-slug path/to/solution/folder/ path/to/output/directory/"
     exit 1
 fi
