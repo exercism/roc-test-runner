@@ -23,7 +23,9 @@ if [ "${SKIP_DOCKER_BUILD:-0}" != "1" ]; then
     docker build --platform linux/amd64 -t "${image}" .
 fi
 
-# Run the Docker image using the settings mimicking the production environment
+# Approximate production restrictions and verify support for a read-only root
+# filesystem, as recommended by Exercism.
+
 docker run \
     --platform linux/amd64 \
     --rm \

@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "status": "fail",
+  "message": "\u001b[90mRoc compiler version \u001b[36mnightly-2026-10-06-c34079d\u001b[0m\nProgram exited with error: TestsFailed({ failed: 2, passed: 1 })"
+}
