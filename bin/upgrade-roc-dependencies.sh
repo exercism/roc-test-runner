@@ -101,8 +101,8 @@ while IFS= read -r old_url; do
     new_url_replacement=$(printf '%s' "$new_url" | escape_sed_replacement)
     for file in "${files[@]}"; do
         work_file="$work_dir/${file#"$repo_root/"}"
-        sed "s#${old_url_pattern}#${new_url_replacement}#g" "$work_file" > "$work_file.next"
-        mv "$work_file.next" "$work_file"
+        updated=$( sed "s#${old_url_pattern}#${new_url_replacement}#g" "$work_file" )
+        printf '%s\n' "${updated}" > "$work_file"
     done
 
     echo "${repository}: ${tag_name}"
