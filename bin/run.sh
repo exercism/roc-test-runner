@@ -84,8 +84,9 @@ else
     #      | GREP_COLOR='01;31' grep --color=always -E -e '^(ERROR:.*|.*failed)$|$' \
     #      | GREP_COLOR='01;32' grep --color=always -E -e '^.*passed$|$')
 
-    if { "$platform_test" && [ "$test_status" -eq 1 ]; } ||
-       { ! "$platform_test" && printf "%s\n" "$sanitized_test_output" | grep -q -E '^Ran [0-9]+ tests'; }; then
+    if "$platform_test" && (( test_status == 1 )); then
+        roc_status="fail"
+    elif ! "$platform_test" && grep -q -E '^Ran [0-9]+ tests' <<< "$sanitized_test_output"; then
         roc_status="fail"
     else
         roc_status="error"
