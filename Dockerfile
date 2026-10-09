@@ -11,7 +11,7 @@
 #
 ####
 # Exercism deploys this test runner as a linux/amd64 image.
-FROM ubuntu:26.04@sha256:f3d28607ddd78734bb7f71f117f3c6706c666b8b76cbff7c9ff6e5718d46ff64
+FROM ubuntu:26.04@sha256:f144425ff09be612d6d9ad965196e9cdc23dae1f42110a8a11a3e9a8198759f7
 
 ARG ROC_VERSION_DATE="2026-10-06"
 ARG ROC_BUILD_ID="c34079d"
