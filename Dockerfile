@@ -7,15 +7,14 @@
 # Note: using the same Ubuntu image across many test runners reduces disk space
 # so it's best to coordinate with the Exercism team before changing the digest.
 #
-# To upgrade to the latest Roc nightly, run ./bin/upgrade-roc-nightly.sh
+# To upgrade Roc, run ./bin/upgrade-roc-version.sh [VERSION]
 #
 ####
 # Exercism deploys this test runner as a linux/amd64 image.
 FROM ubuntu:26.04@sha256:6a06111c3b0a8600feadb270aec771dc239bf407b25625f93f44ab00e11f4d3c
 
-ARG ROC_VERSION_DATE="2026-10-30"
-ARG ROC_BUILD_ID="0602c5f"
-ARG ROC_SHA256="e67256aeac4eedd99568802ec187d155e54594e40fb475f7b73005c74410c708"
+ARG ROC_VERSION="0.1.0_RC1"
+ARG ROC_SHA256="043c426ea85dcdbd427951eaed246f0c10c171d988f2598782233a6dae43379d"
 
 RUN apt-get update --fix-missing \
     && apt-get upgrade --yes \
@@ -32,8 +31,8 @@ ENV PATH="$PATH:/opt/test-runner/bin"
 ENV ROC_CACHE_DIR="/tmp/roc"
 
 # Download and remove the archive in the same layer so it is not kept in the image.
-RUN export ROC_FILENAME="roc_nightly-linux_x86_64-${ROC_VERSION_DATE}-${ROC_BUILD_ID}.tar.gz" \
-    && export ROC_URL="https://github.com/roc-lang/nightlies/releases/download/nightly-${ROC_VERSION_DATE}-${ROC_BUILD_ID}/${ROC_FILENAME}" \
+RUN export ROC_FILENAME="roc-linux_x86_64-${ROC_VERSION}.tar.gz" \
+    && export ROC_URL="https://github.com/roc-lang/roc/releases/download/${ROC_VERSION}/${ROC_FILENAME}" \
     && echo "Downloading ${ROC_URL}..." \
     && curl -fL -o "/tmp/${ROC_FILENAME}" "${ROC_URL}" \
     && echo "Verifying checksum..." \
@@ -41,7 +40,7 @@ RUN export ROC_FILENAME="roc_nightly-linux_x86_64-${ROC_VERSION_DATE}-${ROC_BUIL
     && echo "Extracting..." \
     && tar -xzf "/tmp/${ROC_FILENAME}" -C /opt/test-runner \
     && rm "/tmp/${ROC_FILENAME}" \
-    && ln -s "/opt/test-runner/roc_nightly-linux_x86_64-${ROC_VERSION_DATE}-${ROC_BUILD_ID}/roc" /opt/test-runner/bin/roc \
+    && ln -s "/opt/test-runner/roc-linux_x86_64-${ROC_VERSION}/roc" /opt/test-runner/bin/roc \
     && bin/download-dependencies.sh
 
 COPY . .
