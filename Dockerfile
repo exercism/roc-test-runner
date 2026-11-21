@@ -13,9 +13,9 @@
 # Exercism deploys this test runner as a linux/amd64 image.
 FROM ubuntu:26.04@sha256:6a06111c3b0a8600feadb270aec771dc239bf407b25625f93f44ab00e11f4d3c
 
-ARG ROC_VERSION_DATE="2026-11-09"
-ARG ROC_BUILD_ID="9e85de7"
-ARG ROC_SHA256="9d2480e900bee27cae0974266c088f43e8e2ceaa6543c2be7314b7bdd2b7891d"
+ARG ROC_VERSION_DATE="2026-11-20"
+ARG ROC_BUILD_ID="3b29392"
+ARG ROC_SHA256="4e8a284bdb19f1b9a587c3a8065632c5080088a4f74953d47f9975456630cdcd"
 
 RUN apt-get update --fix-missing \
     && apt-get upgrade --yes \
